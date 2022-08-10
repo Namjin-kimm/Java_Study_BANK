@@ -51,7 +51,7 @@ public class BankMembersDAO implements MembersDAO{
 		PreparedStatement st = con.prepareStatement(sql);
 		
 		//4. ? 값 세팅
-		st.setString(1, search);
+		st.setString(1, "%" + search + "%");
 		
 		//5. 최종 전송 후 결과 처리
 		ResultSet rs = st.executeQuery();

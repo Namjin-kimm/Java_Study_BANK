@@ -39,6 +39,8 @@
 	<h3>Data가 없다</h3>
 	<%} %>
 	
+	<a href="list">리스트보기</a>
+	
 
 </body>
 </html>

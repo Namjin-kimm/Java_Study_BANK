@@ -16,7 +16,7 @@
 	<table border="1">
 		<thead>
 			<tr>
-				<th>Name</th><th>Rate</th>
+				<th>Name</th><th>Rate</th><th>Sale</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,11 +33,14 @@
 				<tr>
 					<td><a href ="detail?bookNum=<%= bankBookDTO.getBookNum()%>"><%=bankBookDTO.getBookName() %></a></td>
 					<td><%=bankBookDTO.getBookRate() %></td>
+					<td><%=bankBookDTO.getBooksale() %></td>
 				</tr>
 			<% } %>
 		</tbody>
 	
 	</table>
+	
+	<a href="add">상품등록</a>
 	
 	
 

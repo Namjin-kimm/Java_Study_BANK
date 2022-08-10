@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="./login" method="post"></form>
+<form action="./login" method="post">
 	<h3>ID</h3><br>
     <input type="text" value="ID 입력">
     <input type="submit">
@@ -18,5 +18,6 @@
 
     <a href="/study_index.html">인덱스 절대경로</a>
     <a href="../study_index.html">인덱스 상대경로</a>
+    </form>
 </body>
 </html>

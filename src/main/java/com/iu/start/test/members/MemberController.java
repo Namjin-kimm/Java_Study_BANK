@@ -1,10 +1,13 @@
 package com.iu.start.test.members;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.start.bankbook.BankBookDTO;
 
@@ -19,13 +22,41 @@ public class MemberController {
 	//@ : 설명 + 실행
 	
 	// /member/login
-	@RequestMapping(value = "login")
+	@RequestMapping(value = "login", method= RequestMethod.GET)
 	
-	public String login() {
+	public void login() {
 		System.out.println("로그인 실행");
 		
-		return "/member/login";
+//		return "/member/login";
 	}
+	
+@RequestMapping(value = "login", method= RequestMethod.POST)
+	
+	public String login(BankMembersDTO bankMembersDTO) {
+		System.out.println("DB 로그인 실행");
+//		"redirect: 다시접속할 URL주소(절대경로,상대경로)"
+		return "redirect: ../";
+	}
+	
+	// /member/search  GET  -> 아이디를 입력하는 폼
+	// /WEB-INF/views/member/search.jsp
+	// id를 입력해서 검색 -> /member/search POST   출력 /WEB-INF/views/member/list.jsp
+	@RequestMapping(value = "search", method = RequestMethod.GET)
+	public void getSearchById() {
+		System.out.println("search 실행");
+//		return "/member/search";
+	}
+	
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	public ModelAndView getSearchById(String search, ModelAndView mv) throws Exception {
+		System.out.println("search 실행");
+		BankMembersDAO bankMembersDAO = new BankMembersDAO();
+		ArrayList<BankMembersDTO> ar = bankMembersDAO.getSearchById(search);
+		mv.setViewName("member/list");
+		mv.addObject("search", ar);
+		return mv;
+	}
+	
 	
 	//join /member/join
 	@RequestMapping(value = "join", method = RequestMethod.GET)
@@ -33,7 +64,7 @@ public class MemberController {
 	public String join() {
 		System.out.println("조인 GET 실행");
 		
-		return "/member/join";
+		return "member/join";
 		
 		
 	}
@@ -50,8 +81,8 @@ public class MemberController {
 		
 		
 			int result = bankMembersDAO.setJoin(bankMembersDTO);
-			System.out.println(result);
-		return "/member/join";
+			System.out.println(result == 1);
+		return "redirect:login";
 	}
 	
 //	public String join(String id, String pw, String name, String email, String phone) throws Exception {
