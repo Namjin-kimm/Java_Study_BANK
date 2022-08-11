@@ -128,5 +128,6 @@ Temporary Items
 
 # My DB
 DBConnector.java
+target/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,eclipse,java
