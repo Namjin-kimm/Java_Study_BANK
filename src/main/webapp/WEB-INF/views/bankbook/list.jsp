@@ -1,7 +1,6 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.iu.start.bankbook.BankBookDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,14 +27,22 @@
 				<td>Name2</td>
 				<td>3.14</td>
 			</tr> -->
-			<%ArrayList<BankBookDTO> ar = (ArrayList<BankBookDTO>)request.getAttribute("list"); %>
+			
+			<c:forEach items="${list}" var="dto">
+				<tr>
+					<td><a href ="detail?bookNum=${dto.bookNum}">${dto.bookName}</a></td>
+					<td>${dto.bookName}</td>
+					<td>${dto.bookSale}</td>
+				</tr>
+			</c:forEach>
+			<%-- <%ArrayList<BankBookDTO> ar = (ArrayList<BankBookDTO>)request.getAttribute("list"); %>
 			<% for(BankBookDTO bankBookDTO : ar){ %>
 				<tr>
 					<td><a href ="detail?bookNum=<%= bankBookDTO.getBookNum()%>"><%=bankBookDTO.getBookName() %></a></td>
 					<td><%=bankBookDTO.getBookRate() %></td>
-					<td><%=bankBookDTO.getBooksale() %></td>
+					<td><%=bankBookDTO.getBookSale() %></td>
 				</tr>
-			<% } %>
+			<% } %> --%>
 		</tbody>
 	
 	</table>

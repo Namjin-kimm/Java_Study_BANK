@@ -17,9 +17,9 @@
 	<a href="../member/login">Login</a>
 	<a href="/member/login">Join</a>
 	
-	<%BankBookDTO bankBookDTO = (BankBookDTO)request.getAttribute("detail"); %>
+	<%-- <%BankBookDTO bankBookDTO = (BankBookDTO)request.getAttribute("detail"); %> --%>
 	
-	<%if(bankBookDTO != null){ %>
+	<%-- <%if(bankBookDTO != null){ %> --%>
 <table border="1">
 	<thead>
 		<tr>
@@ -28,18 +28,25 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td><%=bankBookDTO.getBookNum() %></td>
+			<td>${requestScope.detail.getBookNum()}</td>
+			<td>${requestScope.detail.bookName}</td>
+			<td>${detail.bookRate}</td>
+			<td>${detail.bookSale}</td>
+			
+			<%-- <td><%=bankBookDTO.getBookNum() %></td>
 			<td><%=bankBookDTO.getBookName() %></td>
 			<td><%=bankBookDTO.getBookRate() %></td>
-			<td><%=bankBookDTO.getBooksale() %></td>
+			<td><%=bankBookDTO.getBooksale() %></td> --%>
 		</tr>
 	</tbody>
 </table>
-	<%}else{ %>
+	<%-- <%}else{ %>
 	<h3>Data가 없다</h3>
-	<%} %>
-	
+	<%} %> --%>
+	<%BankBookDTO bankBookDTO = new BankBookDTO(); %>
 	<a href="list">리스트보기</a>
+	<a href="update?bookNum=${detail.bookNum}">수정</a>
+	<a href="delete?bookNum=${detail.bookNum}">삭제</a>
 	
 
 </body>

@@ -9,6 +9,26 @@ import java.util.StringTokenizer;
 import com.iu.start.util.DBConnector;
 
 public class BankMembersDAO implements MembersDAO{
+	
+	public BankMembersDTO getLogin(BankMembersDTO bankMembersDTO)throws Exception{
+		Connection con = DBConnector.getConnection();
+		String sql = "SELECT USERNAME, NAME FROM MEMBERS WHERE USERNAME =? AND PASSWORD =?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setString(1, bankMembersDTO.getUsername());
+		st.setString(2, bankMembersDTO.getPassword());
+		ResultSet rs = st.executeQuery();
+		if(rs.next()) {
+			bankMembersDTO = new BankMembersDTO();
+			bankMembersDTO.setUsername(rs.getString("USERNAME"));
+			bankMembersDTO.setName(rs.getString("NAME"));
+		}else {
+			bankMembersDTO = null;
+//			return null;
+		}
+		DBConnector.disConnection(rs, st, con);
+		
+		return bankMembersDTO;
+	}
 
 	public int setJoin(BankMembersDTO bankMembersDTO) throws Exception {
 		//1. DB연결
@@ -67,9 +87,10 @@ public class BankMembersDAO implements MembersDAO{
 		}
 		
 		//6. 자원 해제
-		rs.close();
-		st.close();
-		con.close();
+//		rs.close();
+//		st.close();
+//		con.close();
+		DBConnector.disConnection(rs, st, con);
 		
 		return ar;
 	}

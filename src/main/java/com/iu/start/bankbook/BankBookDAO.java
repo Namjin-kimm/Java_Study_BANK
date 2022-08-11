@@ -9,6 +9,32 @@ import java.util.Calendar;
 import com.iu.start.util.DBConnector;
 
 public class BankBookDAO implements BookDAO {
+	
+	@Override
+	public int setDelete(BankBookDTO bankBookDTO)throws Exception{
+		Connection con = DBConnector.getConnection();
+		String sql = "DELETE BANKBOOK WHERE BOOKNUM = ?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setLong(1, bankBookDTO.getBookNum());
+		int result = st.executeUpdate();
+		DBConnector.disConnection(st, con);
+		
+		return result;
+	}
+	
+	@Override
+	public int setUpdate(BankBookDTO bankBookDTO)throws Exception{
+		Connection con = DBConnector.getConnection();
+		String sql = "UPDATE BANKBOOK SET BOOKNAME = ?,BOOKRATE = ? WHERE BOOKNUM = ?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setString(1, bankBookDTO.getBookName());
+		st.setDouble(2, bankBookDTO.getBookRate());
+		st.setLong(3, bankBookDTO.getBookNum());
+		int result = st.executeUpdate();
+		
+		DBConnector.disConnection(st, con);
+		return result;
+	}
 
 	@Override
 	public int setBankBook(BankBookDTO bankBookDTO) throws Exception {
@@ -39,7 +65,7 @@ public class BankBookDAO implements BookDAO {
 			bankBookDTO.setBookNum(rs.getLong("BOOKNUM"));
 			bankBookDTO.setBookName(rs.getString("BOOKNAME"));
 			bankBookDTO.setBookRate(rs.getDouble("BOOKRATE"));
-			bankBookDTO.setBooksale(rs.getInt("BOOKSALE"));
+			bankBookDTO.setBookSale(rs.getInt("BOOKSALE"));
 			
 			arr.add(bankBookDTO);
 		}
@@ -82,10 +108,13 @@ public class BankBookDAO implements BookDAO {
 	public BankBookDTO getDetail(BankBookDTO bankBookDTO) throws Exception {
 		// TODO Auto-generated method stub
 		Connection con = DBConnector.getConnection();
+		
 		String sql = "SELECT * FROM BANKBOOK WHERE BOOKNUM = ?";
+		
 		PreparedStatement st = con.prepareStatement(sql);
 
 		st.setLong(1, bankBookDTO.getBookNum());
+		
 		ResultSet rs = st.executeQuery();
 		
 		BankBookDTO dto = new BankBookDTO();
@@ -93,8 +122,9 @@ public class BankBookDAO implements BookDAO {
 			dto.setBookNum(rs.getLong("BOOKNUM"));
 			dto.setBookName(rs.getString("BOOKNAME"));
 			dto.setBookRate(rs.getDouble("BOOKRATE"));
-			dto.setBooksale(rs.getInt("BOOKSALE"));
+			dto.setBookSale(rs.getInt("BOOKSALE"));
 		}
+		DBConnector.disConnection(rs, st, con);
 		return dto;
 	}
 

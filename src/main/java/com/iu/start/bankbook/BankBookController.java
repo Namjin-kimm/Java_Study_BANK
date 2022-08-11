@@ -13,6 +13,37 @@ import org.springframework.web.servlet.ModelAndView;
 public class BankBookController {
 	BankBookDAO bankBookDAO = new BankBookDAO();
 	
+	// /bankbook/delete GET
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public ModelAndView delete(BankBookDTO bankBookDTO) throws Exception{
+		System.out.println("delete 실행");
+		ModelAndView mv = new ModelAndView();
+		int result = bankBookDAO.setDelete(bankBookDTO);
+		System.out.println(result);
+		mv.setViewName("redirect: list");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public void update(BankBookDTO bankBookDTO, Model model) throws Exception{
+		System.out.println("update 실행");
+		System.out.println(bankBookDTO.getBookNum());
+		bankBookDTO = bankBookDAO.getDetail(bankBookDTO);
+		model.addAttribute("dto", bankBookDTO);
+	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public ModelAndView update(BankBookDTO bankBookDTO) throws Exception{
+		System.out.println("update post 실행");
+		ModelAndView mv = new ModelAndView();
+		int result = bankBookDAO.setUpdate(bankBookDTO);
+		System.out.println(result);
+		mv.setViewName("redirect: detail?bookNum=" + bankBookDTO.getBookNum());
+		return mv;
+	}
+	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String list(Model model) throws Exception{
 		System.out.println("list 실행");
@@ -28,7 +59,6 @@ public class BankBookController {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("detail 실행");
 //		System.out.println("bookNum :" + bookNum);
-		BankBookDAO bankBookDAO = new BankBookDAO();
 		bankBookDTO = bankBookDAO.getDetail(bankBookDTO);
 		mv.setViewName("bankbook/detail");
 		mv.addObject("detail", bankBookDTO);

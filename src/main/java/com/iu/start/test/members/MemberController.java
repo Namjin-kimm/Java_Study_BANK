@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,10 +33,14 @@ public class MemberController {
 	
 @RequestMapping(value = "login", method= RequestMethod.POST)
 	
-	public String login(BankMembersDTO bankMembersDTO) {
+	public String login(BankMembersDTO bankMembersDTO, Model model) throws Exception{
 		System.out.println("DB 로그인 실행");
+		BankMembersDAO bankMembersDAO = new BankMembersDAO();
+		bankMembersDTO = bankMembersDAO.getLogin(bankMembersDTO);
+		System.out.println(bankMembersDTO);
 //		"redirect: 다시접속할 URL주소(절대경로,상대경로)"
-		return "redirect: ../";
+		model.addAttribute("member", bankMembersDTO);
+		return "home";
 	}
 	
 	// /member/search  GET  -> 아이디를 입력하는 폼
