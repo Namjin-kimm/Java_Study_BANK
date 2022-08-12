@@ -31,7 +31,7 @@
 			<c:forEach items="${list}" var="dto">
 				<tr>
 					<td><a href ="detail?bookNum=${dto.bookNum}">${dto.bookName}</a></td>
-					<td>${dto.bookName}</td>
+					<td>${dto.bookRate}</td>
 					<td>${dto.bookSale}</td>
 				</tr>
 			</c:forEach>

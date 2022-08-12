@@ -3,6 +3,7 @@ package com.iu.start.test.members;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,12 @@ public class MemberController {
 	//annotation
 	//@ : 설명 + 실행
 	
+	@RequestMapping(value = "logout", method = RequestMethod.GET )
+	public String logout(HttpSession session)throws Exception{
+		session.invalidate();
+		return "redirect: ../";
+	}
+	
 	// /member/login
 	@RequestMapping(value = "login", method= RequestMethod.GET)
 	
@@ -33,14 +40,15 @@ public class MemberController {
 	
 @RequestMapping(value = "login", method= RequestMethod.POST)
 	
-	public String login(BankMembersDTO bankMembersDTO, Model model) throws Exception{
+	public String login(BankMembersDTO bankMembersDTO, HttpSession session) throws Exception{
 		System.out.println("DB 로그인 실행");
 		BankMembersDAO bankMembersDAO = new BankMembersDAO();
 		bankMembersDTO = bankMembersDAO.getLogin(bankMembersDTO);
 		System.out.println(bankMembersDTO);
 //		"redirect: 다시접속할 URL주소(절대경로,상대경로)"
-		model.addAttribute("member", bankMembersDTO);
-		return "home";
+//		model.addAttribute("member", bankMembersDTO);
+		session.setAttribute("member", bankMembersDTO);
+		return "redirect:../";
 	}
 	
 	// /member/search  GET  -> 아이디를 입력하는 폼

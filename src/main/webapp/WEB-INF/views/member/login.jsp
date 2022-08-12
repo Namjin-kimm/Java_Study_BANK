@@ -9,10 +9,10 @@
 <body>
 <form action="./login" method="post">
 	<h3>ID</h3><br>
-    <input type="text" value="ID 입력" name="username">
+    <input type="text" value="RR" name="username">
     <input type="submit">
     <input type="reset"><br>
-    PW <input type="password" value="PW 입력" name="password"><br>
+    PW <input type="password" value="WW" name="password"><br>
 
     <!-- <img src="/images/iu.jpg"> -->
 
