@@ -2,6 +2,7 @@ package com.iu.start.bankbook;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,14 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/bankbook/*")
 public class BankBookController {
-	BankBookDAO bankBookDAO = new BankBookDAO();
+	@Autowired
+	private BankBookService bankBookService;
 	
 	// /bankbook/delete GET
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public ModelAndView delete(BankBookDTO bankBookDTO) throws Exception{
 		System.out.println("delete 실행");
 		ModelAndView mv = new ModelAndView();
-		int result = bankBookDAO.setDelete(bankBookDTO);
+		int result = bankBookService.setDelete(bankBookDTO);
 		System.out.println(result);
 		mv.setViewName("redirect: list");
 		
@@ -30,7 +32,7 @@ public class BankBookController {
 	public void update(BankBookDTO bankBookDTO, Model model) throws Exception{
 		System.out.println("update 실행");
 		System.out.println(bankBookDTO.getBookNum());
-		bankBookDTO = bankBookDAO.getDetail(bankBookDTO);
+		bankBookDTO = bankBookService.getDetail(bankBookDTO);
 		model.addAttribute("dto", bankBookDTO);
 	}
 	
@@ -38,7 +40,7 @@ public class BankBookController {
 	public ModelAndView update(BankBookDTO bankBookDTO) throws Exception{
 		System.out.println("update post 실행");
 		ModelAndView mv = new ModelAndView();
-		int result = bankBookDAO.setUpdate(bankBookDTO);
+		int result = bankBookService.setUpdate(bankBookDTO);
 		System.out.println(result);
 		mv.setViewName("redirect: detail?bookNum=" + bankBookDTO.getBookNum());
 		return mv;
@@ -59,7 +61,7 @@ public class BankBookController {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("detail 실행");
 //		System.out.println("bookNum :" + bookNum);
-		bankBookDTO = bankBookDAO.getDetail(bankBookDTO);
+		bankBookDTO = bankBookService.getDetail(bankBookDTO);
 		mv.setViewName("bankbook/detail");
 		mv.addObject("detail", bankBookDTO);
 		
@@ -80,7 +82,7 @@ public class BankBookController {
 	public ModelAndView add(BankBookDTO bankBookDTO) throws Exception {
 		System.out.println("실행");
 		ModelAndView mv = new ModelAndView();
-		int result = bankBookDAO.setBankBook(bankBookDTO);
+		int result = bankBookService.setBankBook(bankBookDTO);
 		System.out.println(result);
 		mv.setViewName("redirect:list");
 		return mv;

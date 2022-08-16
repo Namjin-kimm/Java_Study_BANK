@@ -9,4 +9,5 @@ public interface MembersDAO {
 	
 	public ArrayList<BankMembersDTO> getSearchById(String search) throws Exception;
 
+	public BankMembersDTO getLogin(BankMembersDTO bankMembersDTO)throws Exception;
 }
