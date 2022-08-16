@@ -37,7 +37,7 @@
 			<%-- <td><%=bankBookDTO.getBookNum() %></td>
 			<td><%=bankBookDTO.getBookName() %></td>
 			<td><%=bankBookDTO.getBookRate() %></td>
-			<td><%=bankBookDTO.getBooksale() %></td> --%>
+			<td><%=bankBookDTO.getBookSale() %></td> --%>
 		</tr>
 	</tbody>
 </table>

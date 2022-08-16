@@ -35,14 +35,7 @@
 					<td>${dto.bookSale}</td>
 				</tr>
 			</c:forEach>
-			<%-- <%ArrayList<BankBookDTO> ar = (ArrayList<BankBookDTO>)request.getAttribute("list"); %>
-			<% for(BankBookDTO bankBookDTO : ar){ %>
-				<tr>
-					<td><a href ="detail?bookNum=<%= bankBookDTO.getBookNum()%>"><%=bankBookDTO.getBookName() %></a></td>
-					<td><%=bankBookDTO.getBookRate() %></td>
-					<td><%=bankBookDTO.getBookSale() %></td>
-				</tr>
-			<% } %> --%>
+			
 		</tbody>
 	
 	</table>
