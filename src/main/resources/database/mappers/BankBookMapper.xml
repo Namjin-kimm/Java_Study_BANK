@@ -9,6 +9,13 @@
     	DELETE BANKBOOK WHERE BOOKNUM = #{bookNum}
     </delete>
     
+    <update id="setUpdate" parameterType="com.iu.start.bankbook.BankBookDTO">
+    	UPDATE BANKBOOK SET BOOKNAME = #{bookName},BOOKRATE = #{bookRate} WHERE BOOKNUM = #{bookNum}
+    </update>
+    
+    <insert id="setBankBook" parameterType="com.iu.start.bankbook.BankBookDTO">
+    	INSERT INTO BANKBOOK VALUES (?, ?, ?, 1)
+    </insert>
     
     
     </mapper>

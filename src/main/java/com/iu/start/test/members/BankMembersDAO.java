@@ -4,61 +4,67 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
+
+import org.apache.ibatis.session.SqlSession;
 
 import com.iu.start.util.DBConnector;
 
 public class BankMembersDAO implements MembersDAO{
 	
+	private SqlSession sqlSession;
+	private final String NAMESPACE = "com.iu.start.test.members.BankBookDAO.";
+	
 	public BankMembersDTO getLogin(BankMembersDTO bankMembersDTO)throws Exception{
-		Connection con = DBConnector.getConnection();
-		String sql = "SELECT USERNAME, NAME FROM MEMBERS WHERE USERNAME =? AND PASSWORD =?";
-		PreparedStatement st = con.prepareStatement(sql);
-		st.setString(1, bankMembersDTO.getUsername());
-		st.setString(2, bankMembersDTO.getPassword());
-		ResultSet rs = st.executeQuery();
-		if(rs.next()) {
-			bankMembersDTO = new BankMembersDTO();
-			bankMembersDTO.setUsername(rs.getString("USERNAME"));
-			bankMembersDTO.setName(rs.getString("NAME"));
-		}else {
-			bankMembersDTO = null;
-//			return null;
-		}
-		DBConnector.disConnection(rs, st, con);
+//		Connection con = DBConnector.getConnection();
+//		String sql = "SELECT USERNAME, NAME FROM MEMBERS WHERE USERNAME =? AND PASSWORD =?";
+//		PreparedStatement st = con.prepareStatement(sql);
+//		st.setString(1, bankMembersDTO.getUsername());
+//		st.setString(2, bankMembersDTO.getPassword());
+//		ResultSet rs = st.executeQuery();
+//		if(rs.next()) {
+//			bankMembersDTO = new BankMembersDTO();
+//			bankMembersDTO.setUsername(rs.getString("USERNAME"));
+//			bankMembersDTO.setName(rs.getString("NAME"));
+//		}else {
+//			bankMembersDTO = null;
+////			return null;
+//		}
+//		DBConnector.disConnection(rs, st, con);
 		
-		return bankMembersDTO;
+		return sqlSession.selectOne(NAMESPACE + "getLogin", bankMembersDTO);
 	}
 
 	public int setJoin(BankMembersDTO bankMembersDTO) throws Exception {
-		//1. DB연결
-		Connection con = DBConnector.getConnection();
+//		//1. DB연결
+//		Connection con = DBConnector.getConnection();
+//		
+//		//2. SQL문 생성
+//		String sql = "INSERT INTO MEMBERS VALUES (?, ?, ?, ?, ?)";
+//		
+//		//3. 쿼리문 미리 보내기
+//		PreparedStatement st = con.prepareStatement(sql);
+//		
+//		//4. ?값 세팅
+//		st.setString(1, bankMembersDTO.getUsername());
+//		st.setString(2, bankMembersDTO.getPassword());
+//		st.setString(3, bankMembersDTO.getName());
+//		st.setString(4, bankMembersDTO.getEmail());
+//		st.setString(5, bankMembersDTO.getPhone());
+//		
+//		//5. 최종 전송 후 결과 처리
+//		int result = st.executeUpdate();
+//		
+//		//6. 자원 해제
+//		st.close();
+//		con.close();
 		
-		//2. SQL문 생성
-		String sql = "INSERT INTO MEMBERS VALUES (?, ?, ?, ?, ?)";
-		
-		//3. 쿼리문 미리 보내기
-		PreparedStatement st = con.prepareStatement(sql);
-		
-		//4. ?값 세팅
-		st.setString(1, bankMembersDTO.getUsername());
-		st.setString(2, bankMembersDTO.getPassword());
-		st.setString(3, bankMembersDTO.getName());
-		st.setString(4, bankMembersDTO.getEmail());
-		st.setString(5, bankMembersDTO.getPhone());
-		
-		//5. 최종 전송 후 결과 처리
-		int result = st.executeUpdate();
-		
-		//6. 자원 해제
-		st.close();
-		con.close();
-		
-		return result;
+		return sqlSession.insert(NAMESPACE + "setJoin", bankMembersDTO);
 	}
 
 	@Override
-	public ArrayList<BankMembersDTO> getSearchById(String search) throws Exception {
+	public List<BankMembersDTO> getSearchById(String search) throws Exception {
 		ArrayList<BankMembersDTO> ar = new ArrayList<BankMembersDTO>();
 		
 		//1. DB연결

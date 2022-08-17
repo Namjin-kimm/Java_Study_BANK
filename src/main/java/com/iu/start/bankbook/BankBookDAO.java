@@ -24,21 +24,21 @@ public class BankBookDAO implements BookDAO {
 //		int result = st.executeUpdate();
 //		DBConnector.disConnection(st, con);
 		
-		return sqlSession.delete(NAMESPACE + , bankBookDTO);
+		return sqlSession.delete(NAMESPACE + "setDelete" , bankBookDTO);
 	}
 	
 	@Override
 	public int setUpdate(BankBookDTO bankBookDTO)throws Exception{
-		Connection con = DBConnector.getConnection();
-		String sql = "UPDATE BANKBOOK SET BOOKNAME = ?,BOOKRATE = ? WHERE BOOKNUM = ?";
-		PreparedStatement st = con.prepareStatement(sql);
-		st.setString(1, bankBookDTO.getBookName());
-		st.setDouble(2, bankBookDTO.getBookRate());
-		st.setLong(3, bankBookDTO.getBookNum());
-		int result = st.executeUpdate();
-		
-		DBConnector.disConnection(st, con);
-		return result;
+//		Connection con = DBConnector.getConnection();
+//		String sql = "UPDATE BANKBOOK SET BOOKNAME = ?,BOOKRATE = ? WHERE BOOKNUM = ?";
+//		PreparedStatement st = con.prepareStatement(sql);
+//		st.setString(1, bankBookDTO.getBookName());
+//		st.setDouble(2, bankBookDTO.getBookRate());
+//		st.setLong(3, bankBookDTO.getBookNum());
+//		int result = st.executeUpdate();
+//		
+//		DBConnector.disConnection(st, con);
+		return sqlSession.update(NAMESPACE + "setUpdate", bankBookDTO);
 	}
 
 	@Override
