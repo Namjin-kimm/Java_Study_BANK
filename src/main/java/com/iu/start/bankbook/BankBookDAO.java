@@ -12,6 +12,9 @@ import com.iu.start.util.DBConnector;
 
 public class BankBookDAO implements BookDAO {
 	
+	private SqlSession sqlSession;
+	private final String NAMESPACE = "com.iu.start.bankbook.BankBookDAO.";
+	
 	@Override
 	public int setDelete(BankBookDTO bankBookDTO)throws Exception{
 //		Connection con = DBConnector.getConnection();
@@ -21,7 +24,7 @@ public class BankBookDAO implements BookDAO {
 //		int result = st.executeUpdate();
 //		DBConnector.disConnection(st, con);
 		
-		return SqlSession.;
+		return sqlSession.delete(NAMESPACE + , bankBookDTO);
 	}
 	
 	@Override
