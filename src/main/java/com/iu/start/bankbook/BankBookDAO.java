@@ -6,20 +6,22 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.iu.start.util.DBConnector;
 
 public class BankBookDAO implements BookDAO {
 	
 	@Override
 	public int setDelete(BankBookDTO bankBookDTO)throws Exception{
-		Connection con = DBConnector.getConnection();
-		String sql = "DELETE BANKBOOK WHERE BOOKNUM = ?";
-		PreparedStatement st = con.prepareStatement(sql);
-		st.setLong(1, bankBookDTO.getBookNum());
-		int result = st.executeUpdate();
-		DBConnector.disConnection(st, con);
+//		Connection con = DBConnector.getConnection();
+//		String sql = "DELETE BANKBOOK WHERE BOOKNUM = ?";
+//		PreparedStatement st = con.prepareStatement(sql);
+//		st.setLong(1, bankBookDTO.getBookNum());
+//		int result = st.executeUpdate();
+//		DBConnector.disConnection(st, con);
 		
-		return result;
+//		return SqlSession;
 	}
 	
 	@Override

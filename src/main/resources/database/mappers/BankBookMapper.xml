@@ -5,7 +5,11 @@
     
     <mapper namespace="com.iu.start.bankbook.BankBookDAO">
     
-    <delete id=""></delete>
+    <delete id="setDelete" parameterType="com.iu.start.bankbook.BankBookDTO">
+    	DELETE BANKBOOK WHERE BOOKNUM = #{bookNum}
+    </delete>
+    
+    
     
     </mapper>
     
