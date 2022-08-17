@@ -14,7 +14,7 @@
 	</insert>
 	
 	<select id="getSearchById" parameterType="java.util.List" resultType="com.iu.start.test.members.BankMembersDTO">
-		SELECT * FROM MEMBERS WHERE USERNAME LIKE #{username} ORDER BY USERNAME ASC
+		SELECT * FROM MEMBERS WHERE USERNAME LIKE #{search} ORDER BY USERNAME ASC
 	</select>
 		    
 	</mapper>

@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import com.iu.start.util.DBConnector;
 
+@Repository
 public class BankMembersDAO implements MembersDAO{
 	
 	private SqlSession sqlSession;
@@ -65,40 +67,40 @@ public class BankMembersDAO implements MembersDAO{
 
 	@Override
 	public List<BankMembersDTO> getSearchById(String search) throws Exception {
-		ArrayList<BankMembersDTO> ar = new ArrayList<BankMembersDTO>();
-		
-		//1. DB연결
-		Connection con = DBConnector.getConnection();
-		
-		//2. 쿼리문 작성
-		String sql = "SELECT * FROM MEMBERS WHERE USERNAME LIKE ? ORDER BY USERNAME ASC";
-		
-		//3. 쿼리문 미리 보내기
-		PreparedStatement st = con.prepareStatement(sql);
-		
-		//4. ? 값 세팅
-		st.setString(1, "%" + search + "%");
-		
-		//5. 최종 전송 후 결과 처리
-		ResultSet rs = st.executeQuery();
-		
-		while(rs.next()) {
-			BankMembersDTO bankMembersDTO = new BankMembersDTO();
-			bankMembersDTO.setUsername(rs.getString(1));
-			bankMembersDTO.setPassword(rs.getString(2));
-			bankMembersDTO.setName(rs.getString(3));
-			bankMembersDTO.setEmail(rs.getString(4));
-			bankMembersDTO.setPhone(rs.getString(5));
-			ar.add(bankMembersDTO);
-		}
-		
-		//6. 자원 해제
-//		rs.close();
-//		st.close();
-//		con.close();
-		DBConnector.disConnection(rs, st, con);
-		
-		return ar;
+//		ArrayList<BankMembersDTO> ar = new ArrayList<BankMembersDTO>();
+//		
+//		//1. DB연결
+//		Connection con = DBConnector.getConnection();
+//		
+//		//2. 쿼리문 작성
+//		String sql = "SELECT * FROM MEMBERS WHERE USERNAME LIKE ? ORDER BY USERNAME ASC";
+//		
+//		//3. 쿼리문 미리 보내기
+//		PreparedStatement st = con.prepareStatement(sql);
+//		
+//		//4. ? 값 세팅
+//		st.setString(1, "%" + search + "%");
+//		
+//		//5. 최종 전송 후 결과 처리
+//		ResultSet rs = st.executeQuery();
+//		
+//		while(rs.next()) {
+//			BankMembersDTO bankMembersDTO = new BankMembersDTO();
+//			bankMembersDTO.setUsername(rs.getString(1));
+//			bankMembersDTO.setPassword(rs.getString(2));
+//			bankMembersDTO.setName(rs.getString(3));
+//			bankMembersDTO.setEmail(rs.getString(4));
+//			bankMembersDTO.setPhone(rs.getString(5));
+//			ar.add(bankMembersDTO);
+//		}
+//		
+//		//6. 자원 해제
+////		rs.close();
+////		st.close();
+////		con.close();
+//		DBConnector.disConnection(rs, st, con);
+//		
+		return sqlSession.selectList(NAMESPACE + "getSearchById", search);
 	}
 
 	

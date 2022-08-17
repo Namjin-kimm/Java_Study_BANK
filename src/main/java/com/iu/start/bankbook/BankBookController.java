@@ -1,6 +1,7 @@
 package com.iu.start.bankbook;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,6 +79,8 @@ public class BankBookController {
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public ModelAndView add(BankBookDTO bankBookDTO) throws Exception {
 		System.out.println("실행");
+		Calendar calendar = null;
+		bankBookDTO.setBookNum(calendar.getTimeInMillis());
 		ModelAndView mv = new ModelAndView();
 		int result = bankBookService.setBankBook(bankBookDTO);
 		System.out.println(result);
