@@ -21,7 +21,7 @@ public class BankBookDAO implements BookDAO {
 //		int result = st.executeUpdate();
 //		DBConnector.disConnection(st, con);
 		
-//		return SqlSession;
+		return SqlSession.;
 	}
 	
 	@Override
