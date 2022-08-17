@@ -1,6 +1,6 @@
 package com.iu.start.test.members;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -64,7 +64,7 @@ public class MemberController {
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	public ModelAndView getSearchById(String search, ModelAndView mv) throws Exception {
 		System.out.println("search 실행");
-		ArrayList<BankMembersDTO> ar = bankMembersService.getSearchById(search);
+		List<BankMembersDTO> ar = bankMembersService.getSearchById(search);
 		mv.setViewName("member/list");
 		mv.addObject("search", ar);
 		return mv;

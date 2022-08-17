@@ -10,8 +10,12 @@
  		SELECT USERNAME, NAME FROM MEMBERS WHERE USERNAME =#{username} AND PASSWORD =#{password}
  	</select>
  	
- 	<select id="getSearchById" parameterType="com.iu.start.test.members.BankMembersDTO" resultType="com.iu.start.test.members.BankMembersDTO">
- 		SELECT * FROM MEMBERS WHERE USERNAME LIKE ? ORDER BY USERNAME ASC
+ 	<select id="getSearchById" parameterType="java.lang.String" resultType="com.iu.start.test.members.BankMembersDTO">
+ 		SELECT * FROM MEMBERS WHERE USERNAME LIKE '%'||#{search}||'%' ORDER BY USERNAME ASC
  	</select>
+ 	
+ 	<insert id="setJoin" parameterType="com.iu.start.test.members.BankMembersDTO">
+ 		INSERT INTO MEMBERS VALUES (#{username}, #{password}, #{name}, #{email}, #{phone})
+ 	</insert>
  
  </mapper>
